@@ -34,7 +34,7 @@
 
 #include "defns.h"
 #include "extern.h"
-
+#include "math.h"
 #include "transform.h"
 #include "redefine.h"
 
@@ -86,17 +86,33 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 {
     DiscrValue	v;
     double	Sum=0.0, TotalCases=0;
+    double alpha=0.05;
+    double q=1/(alpha-1);
     CaseCount	N;
-
+	double count[20];
+	int i=0;
+	double cf=0.0;
+	double count1=0.0;
     ForEach(v, MinVal, MaxVal)
     {
 	N = V[v];
-
-	Sum += N * Log(N);
+	Sum +=(pow(N,alpha));
 	TotalCases += N;
+    	count[i] += (GEnv.Freq[MaxVal][v]-GEnv.Freq[MinVal][v]);
+	i++;
     }
-
-    return TotalCases * Log(TotalCases) - Sum;
+	if(count[i]<0)
+	{
+		count[i] = -1*count[i];
+	}
+	count[i] /= TotalCases;
+	//count1 += count[i];
+	//cf=count[i]/count1;
+	Sum =1-Sum;
+	Sum = q* Sum;
+	Sum = Sum*count[i];
+	i++;
+    return (TotalCases * Log(TotalCases)) - Sum;
 }
 
 
