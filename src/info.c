@@ -86,7 +86,7 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 {
     DiscrValue	v;
     double	Sum=0.0, TotalCases=0;
-    double alpha=-0.005;
+    double alpha=-0.75;
     double q=1/(alpha-1);
     CaseCount	N;
 	double count[20];
