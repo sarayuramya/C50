@@ -101,11 +101,11 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
     	//count[i] += (GEnv.Freq[MaxVal][v]-GEnv.Freq[MinVal][v]);
 	//i++;
     }
-	if(count[i]<0)
+	/*if(count[i]<0)
 	{
 		count[i] = -1*count[i];
-	}
-	count[i] /= TotalCases;
+	}*/
+	//count[i] /= TotalCases;
 	//count1 += count[i];
 	//cf=count[i]/count1;
 	Sum =1-Sum;
