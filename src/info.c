@@ -98,8 +98,8 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 	N = V[v];
 	Sum +=(pow(N,alpha));
 	TotalCases += N;
-    	count[i] += (GEnv.Freq[MaxVal][v]-GEnv.Freq[MinVal][v]);
-	i++;
+    	//count[i] += (GEnv.Freq[MaxVal][v]-GEnv.Freq[MinVal][v]);
+	//i++;
     }
 	if(count[i]<0)
 	{
@@ -110,8 +110,8 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 	//cf=count[i]/count1;
 	Sum =1-Sum;
 	Sum = q* Sum;
-	Sum = Sum*count[i];
-	i++;
+	//Sum = Sum*count[i];
+	//i++;
     return (TotalCases * Log(TotalCases)) - Sum;
 }
 
