@@ -454,7 +454,7 @@ void EvaluatePair(DiscrValue x, DiscrValue y, CaseCount Cases)
     }
 
     F = GEnv.ValFreq[x] + GEnv.ValFreq[y];
-    GEnv.MergeInfo[x][y] = - F * Log(F / Cases);
+    GEnv.MergeInfo[x][y] = (pow(F,alpha) / Cases)-1;
 
     ForEach(c, 1, MaxClass)
     {
@@ -474,7 +474,7 @@ void EvaluatePair(DiscrValue x, DiscrValue y, CaseCount Cases)
 	Entr1 *= q;
 	//Entr1 *= count[i];
 	i++;*/
-    GEnv.MergeEntr[x][y] = Entr1 +( KnownCases * Log(KnownCases));
+    GEnv.MergeEntr[x][y] = Entr1 +( pow(KnownCases,alpha)-1);
 }
 
 
