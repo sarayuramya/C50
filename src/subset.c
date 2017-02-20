@@ -367,7 +367,7 @@ void Merge(DiscrValue x, DiscrValue y, CaseCount Cases)
     double	Entr1=0.0,count1=0.0;
     CaseCount	KnownCases=0;
     int		R, C;
-    double alpha=-2.25;
+    double alpha=-0.75;
     double q =1/(1-alpha);
     AddBlock(x, y);
 	double count[20];
@@ -441,7 +441,7 @@ void EvaluatePair(DiscrValue x, DiscrValue y, CaseCount Cases)
     ClassNo	c;
     double Entr1=0.0,Entr2=0.0,Entr3=0.0,count1=0.0;
     CaseCount	KnownCases=0, F;
-    double alpha=-2.25;
+    double alpha=-0.75;
     double q= 1/(1-alpha);
 	double count[20];
 	int i=0;
