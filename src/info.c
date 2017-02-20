@@ -111,7 +111,7 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 	i++;
     return pow(TotalCases,alpha) -1- Sum1;
 
-
+}
 
 /*************************************************************************/
 /*									 */
