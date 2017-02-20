@@ -406,7 +406,6 @@ void PrepareForContin(Attribute Att, CaseNo Fp, CaseNo Lp)
 
     GEnv.KnownCases  = GEnv.Cases - GEnv.ValFreq[0];
     GEnv.ApplicCases = GEnv.KnownCases - GEnv.ValFreq[1];
-
     GEnv.UnknownRate = 1.0 - GEnv.KnownCases / GEnv.Cases;
 
     Cachesort(GEnv.Xp, Lp, GEnv.SRec);
