@@ -34,18 +34,19 @@
 
 #include "defns.h"
 #include "extern.h"
-
+#include "math.h"
 #include "transform.h"
 #include "redefine.h"
-#include "math.h"
 
 /*************************************************************************/
 /*									 */
 /*	Given Freq[][] and ValFreq[], compute the information gain.	 */
 /*									 */
 /*************************************************************************/
-
-
+double count[20];
+double count1=0.0;
+double cf=0.0;
+int i=0;
 double ComputeGain(double BaseInfo, float UnknFrac, DiscrValue MaxVal,
 		   CaseCount TotalCases)
 /*     -----------  */
@@ -65,14 +66,14 @@ double ComputeGain(double BaseInfo, float UnknFrac, DiscrValue MaxVal,
 	ThisInfo += TotalInfo(GEnv.Freq[v], 1, MaxClass);
     }
     ThisInfo /= TotalCases;
-
+	//cf= count[i]/count1;
+	//i++;
     /*  Set the gain in information for all cases, adjusted for unknowns  */
 
-    return ( BaseInfo <= ThisInfo ? 0.0 :
-	     (1 - UnknFrac) * (BaseInfo - ThisInfo) );
+  return ( BaseInfo <= ThisInfo ? 0.0 :
+	     (1 - UnknFrac) * (BaseInfo - (ThisInfo)));
 
 }
-
 
 
 /*************************************************************************/
@@ -85,22 +86,30 @@ double ComputeGain(double BaseInfo, float UnknFrac, DiscrValue MaxVal,
 double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 /*     ---------  */
 {
-    DiscrValue	v;
-    double	Sum=0.0, TotalCases=0;
+	
+    DiscrValue	v,x,y;
+    double TotalCases=0,Sum1=0.0;
+    double alpha=-1.25;
+    double q= 1/(1-alpha);
     CaseCount	N;
- 	double alpha=-2.5;
-	double r=1/(1-alpha);
-
     ForEach(v, MinVal, MaxVal)
     {
 	N = V[v];
-
-	Sum += (pow(N,alpha)-1);
-	   // Sum += N*Log(N);
+	Sum1 +=(pow(N,alpha))-1;
 	TotalCases += N;
+    	//count[i] += (GEnv.Freq[x][v]-GEnv.Freq[y][v]);
     }
-
-    return (r*pow(TotalCases,alpha)) - Sum;
+	Sum1 *= q;
+	/*if(count[i]<0)
+	{
+		count[i] = -1*count[i];
+	}*/
+	//count[i] /= TotalCases;
+	//count1 += count[i];
+	//Sum1 = count[i] *Sum1;
+	//cf=count[i]/count1;
+	i++;
+    return TotalCases*Log(TotalCases) - Sum1;
 }
 
 
