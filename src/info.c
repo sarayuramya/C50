@@ -109,7 +109,7 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 	//Sum1 = count[i] *Sum1;
 	//cf=count[i]/count1;
 	i++;
-    return pow(TotalCases,alpha) - Sum1;
+    return pow(TotalCases,alpha) -1- Sum1;
 
 
 
