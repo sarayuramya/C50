@@ -89,7 +89,7 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 	
     DiscrValue	v,x,y;
     double TotalCases=0,Sum1=0.0;
-    double alpha=1.25;
+    double alpha=2.5;
     double q= 1/(1-alpha);
     CaseCount	N;
     ForEach(v, MinVal, MaxVal)
@@ -101,7 +101,7 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
     }
 	Sum1=Log(Sum1);
 	Sum1 *= q;
-	if(count[i]<0)
+	/*if(count[i]<0)
 	{
 		count[i] = -1*count[i];
 	}
@@ -109,7 +109,7 @@ double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 	Sum1 *= count[i];
 	//count1 += count[i];
 	//Sum1 = count[i] *Sum1;
-	//cf=count[i]/count1;
+	//cf=count[i]/count1;*/
 	i++;
     return q*(Log(pow(TotalCases,alpha)) - Sum1);
 	//return TotalCases * log(TotalCases) -Sum1;
