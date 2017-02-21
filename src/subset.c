@@ -394,7 +394,7 @@ void Merge(DiscrValue x, DiscrValue y, CaseCount Cases)
 	Entr1 *= count[i];
 	i++;
     GEnv.SubsetInfo[x] = q* (Log(pow(GEnv.ValFreq[x],alpha)) / Cases);
-    GEnv.SubsetEntr[x] = Entr1 + q* (Log(pow(KnownCases,alpha)));
+    GEnv.SubsetEntr[x] = q* (Entr1 + (Log(pow(KnownCases,alpha))));
 
     /*  Eliminate y from working blocks  */
 
@@ -480,7 +480,7 @@ void EvaluatePair(DiscrValue x, DiscrValue y, CaseCount Cases)
 	Entr1 *= q;
 	Entr1 *= count[i];
 	i++;
-    GEnv.MergeEntr[x][y] = Entr1 +q* (Log( pow(KnownCases,alpha)));
+    GEnv.MergeEntr[x][y] = q* (Entr1 + (Log( pow(KnownCases,alpha))));
 }
 
 
