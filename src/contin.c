@@ -7,6 +7,7 @@
 /*									 */
 /*  C5.0 GPL Edition is free software: you can redistribute it and/or	 */
 /*  modify it under the terms of the GNU General Public License as	 */
+
 /*  published by the Free Software Foundation, either version 3 of the	 */
 /*  License, or (at your option) any later version.			 */
 /*									 */
@@ -36,9 +37,10 @@
 
 #include "transform.h"
 #include "redefine.h"
-#define alpha 2.5
+#include "math.h"
+#define alpha 8.6
 #define q 1/(1-alpha)
-#define	PartInfo(n) q*(Log(pow(n,alpha))/GEnv.Cases)
+#define	PartInfo(n) (pow(n,alpha)/GEnv.Cases) -1 *q
 
 
 /*************************************************************************/
@@ -407,6 +409,7 @@ void PrepareForContin(Attribute Att, CaseNo Fp, CaseNo Lp)
 
     GEnv.KnownCases  = GEnv.Cases - GEnv.ValFreq[0];
     GEnv.ApplicCases = GEnv.KnownCases - GEnv.ValFreq[1];
+
     GEnv.UnknownRate = 1.0 - GEnv.KnownCases / GEnv.Cases;
 
     Cachesort(GEnv.Xp, Lp, GEnv.SRec);
