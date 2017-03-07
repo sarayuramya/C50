@@ -43,37 +43,44 @@
 /*	Given Freq[][] and ValFreq[], compute the information gain.	 */
 /*									 */
 /*************************************************************************/
-double count[20];
-double count1=0.0;
-double cf=0.0;
-int i=0;
+
+
 double ComputeGain(double BaseInfo, float UnknFrac, DiscrValue MaxVal,
 		   CaseCount TotalCases)
 /*     -----------  */
 {
-    DiscrValue	v;
+    DiscrValue	v,x,y;
     double	ThisInfo=0.0;
-
+double count[20];
+	int i=0;
     /*  Check whether all values are unknown or the same  */
 
     if ( ! TotalCases ) return None;
 
     /*  Compute total info after split, by summing the
 	info of each of the subsets formed by the test  */
-
+    //BaseInfo = TotalInfo(GEnv.Freq[v], 1, MaxClass);
     ForEach(v, 1, MaxVal)
     {
 	ThisInfo += TotalInfo(GEnv.Freq[v], 1, MaxClass);
+	    count[i] += GEnv.Freq[x][v]-GEnv.Freq[y][v];
     }
+	if(count[i]<0)
+	{
+		count[i] = -1 * count[i];
+	}
+	count[i] /= TotalCases;
+	BaseInfo *= count[i];
+	i++;
     ThisInfo /= TotalCases;
-	//cf= count[i]/count1;
-	//i++;
+
     /*  Set the gain in information for all cases, adjusted for unknowns  */
 
-  return ( BaseInfo <= ThisInfo ? 0.0 :
-	     (1 - UnknFrac) * (BaseInfo - (ThisInfo)));
+    return ( BaseInfo <= ThisInfo ? 0.0 :
+	     (1 - UnknFrac) * (BaseInfo - ThisInfo) );
 
 }
+
 
 
 /*************************************************************************/
@@ -86,35 +93,36 @@ double ComputeGain(double BaseInfo, float UnknFrac, DiscrValue MaxVal,
 double TotalInfo(double V[], DiscrValue MinVal, DiscrValue MaxVal)
 /*     ---------  */
 {
-	
     DiscrValue	v,x,y;
-    double TotalCases=0,Sum1=0.0;
-    double alpha=2.5;
-    double q= 1/(1-alpha);
+    double	Sum=0.0, TotalCases=0,Sum1=0.0;
     CaseCount	N;
-    ForEach(v, MinVal, MaxVal)
-    {
+double alpha =1.75;
+	double count[20];
+	int i=0;
+	double q= 1/(1-alpha); 
+	
+ 	ForEach(v, MinVal, MaxVal)
+    	{
 	N = V[v];
-	Sum1 +=(pow(N,alpha));
-	TotalCases += N;
-    	count[i] += (GEnv.Freq[MaxVal][v]-GEnv.Freq[MinVal][v]);
-    }
-	Sum1=Log(Sum1);
-	Sum1 *= q;
+	//Sum += N * Log(N);		 
+        Sum += (pow(N,alpha));
+		TotalCases += N;
+	//count[i] += GEnv.Freq[x][v]-GEnv.Freq[y][v];	 
+    	}
 	/*if(count[i]<0)
 	{
-		count[i] = -1*count[i];
+		count[i] = -1 * count[i];
 	}
-	count[i] /= TotalCases;
-	Sum1 *= count[i];
-	//count1 += count[i];
-	//Sum1 = count[i] *Sum1;
-	//cf=count[i]/count1;*/
-	i++;
-    return q*(Log(pow(TotalCases,alpha)) - Sum1);
-	//return TotalCases * log(TotalCases) -Sum1;
-
+	count[i] /= TotalCases;*/
+	Sum = Sum /TotalCases;
+	Sum =(Sum -1)*q;	
+	//Sum *= count[i];
+	
+	//i++;
+    return Sum;
 }
+
+
 
 /*************************************************************************/
 /*									 */
